@@ -157,14 +157,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   tilt: 3
-  speed: 10
+  speed: 15
   boundary:
     xMin: -6
     xMax: 6
     zMin: -4
     zMax: 8
   shot: {fileID: 1463979692656436, guid: 0a745e9f1dafb00499b6e0c763fa922c, type: 2}
-  fireRate: 0.25
+  fireRate: 0.2
   shotSpawn: {fileID: 1430621817}
 --- !u!4 &156172419 stripped
 Transform:
@@ -650,6 +650,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   hazard: {fileID: 1463572837872998, guid: 9bd78288f56e72740a7213a0f525d1a0, type: 2}
   spawnValues: {x: 6, y: 0, z: 16}
+  hazardCount: 10
+  spawnWait: 0.5
+  startWait: 1
+  waveWait: 4
 --- !u!4 &1857267388
 Transform:
   m_ObjectHideFlags: 0
