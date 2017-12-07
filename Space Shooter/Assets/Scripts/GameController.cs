@@ -1,6 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class GameController : MonoBehaviour
 {
@@ -11,12 +13,38 @@ public class GameController : MonoBehaviour
     public float spawnWait;
     public float startWait;
     public float waveWait;
+    private int score;
+    public Text scoreText;
+    public Text restartText;
+    public Text gameOverText;
+    private bool gameOver;
+    private bool restart;
+    private AssetBundle myLoadedAssetBundle;
+    private string[] scenePaths;
+    
 
     private void Start()
     {
+        gameOver = false;
+        restart = false;
+        restartText.text = "";
+        gameOverText.text = "";
         StartCoroutine (SpawnWaves());
+        score = 0;
+        UpdateScore();
+        myLoadedAssetBundle = AssetBundle.LoadFromFile("Assets/_Scenes");
+        scenePaths = myLoadedAssetBundle.GetAllScenePaths();
     }
-
+    private void Update()
+    {
+        if (restart)
+        {
+            if(Input.GetKeyDown(KeyCode.R))
+            {
+                SceneManager.LoadScene("Main", LoadSceneMode.Single);
+            }
+        }
+    }
     IEnumerator SpawnWaves()
     {
         yield return new WaitForSeconds(startWait);
@@ -31,6 +59,29 @@ public class GameController : MonoBehaviour
             }
 
             yield return new WaitForSeconds(waveWait);
+
+            if (gameOver)
+            {
+                restartText.text = "Press 'R' for Restart";
+                restart = true;
+                break;
+            }
         }
+    }
+
+    public void GameOver()
+    {
+        gameOverText.text = "Game Over!";
+        gameOver = true;
+    }
+    public void AddScore (int newScoreValue)
+    {
+        score += newScoreValue;
+        UpdateScore();
+    }
+
+    void UpdateScore()
+    {
+        scoreText.text = "Score: " + score;
     }
 }
